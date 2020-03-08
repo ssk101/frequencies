@@ -12,16 +12,20 @@ export class Bars extends HTMLElement {
     this.styles = styles
     this.template = template()
 
-    this.barThresholds = {
-      7: 32,
-      6: 64,
-      5: 96,
-      4: 128,
-      3: 160,
-      2: 192,
-      1: 224,
-      0: 256,
+    this.thresholds = {
+      0: 250,
+      1: 230,
+      2: 225,
+      3: 210,
+      4: 180,
+      5: 160,
+      6: 75,
+      7: 1,
     }
+  }
+
+  getFreqPerc(freq, max, min = 0) {
+    return ((freq - min) / (max - min)) * 100
   }
 
   getMaxFrequency(arr) {
@@ -40,7 +44,7 @@ export class Bars extends HTMLElement {
     this.setAttribute('data-state', this.PLAY_STATE)
     window.AudioContext = window.AudioContext || window.webkitAudioContext
     this.AUDIO_CTX = new AudioContext()
-    this.BARS = this.shadowRoot.querySelectorAll('.bars .bar')
+    this.bars = this.shadowRoot.querySelectorAll('.bars .bar')
     this.AUDIO = new Audio(URL)
     this.ANALYZER = this.AUDIO_CTX.createAnalyser()
     this.ANALYZER.fftSize = 64
@@ -84,20 +88,17 @@ export class Bars extends HTMLElement {
       requestAnimationFrame(() => this.drawBars())
       this.ANALYZER.getByteFrequencyData(this.FREQUENCY_DATA)
       const frequencies = this.getMaxFrequency(Array.from(this.FREQUENCY_DATA), 4)
-      console.log(frequencies)
-      const bars = this.shadowRoot
-        .querySelector('.bars')
-        .querySelectorAll('.bar')
       frequencies.forEach((frequency, fIndex) => {
-        if(frequency <= this.barThresholds[fIndex]) {
-          bars[fIndex].querySelectorAll('.block').forEach((block, bIndex) => {
-            if(this.barThresholds[bIndex] <= frequency) {
-              block.style.opacity = 1
-            } else {
-              block.style.opacity = 0
-            }
-          })
-        }
+        var perc = this.getFreqPerc(frequency, this.thresholds[fIndex])
+        const blocks = this.bars[fIndex].querySelectorAll('span')
+        blocks.forEach((block, bIndex) => {
+          const hit = (bIndex + 1) * (100 / blocks.length)
+          if(hit <= perc) {
+            block.style.opacity = 1
+          } else {
+            block.style.opacity = 0
+          }
+        })
       })
     }
   }

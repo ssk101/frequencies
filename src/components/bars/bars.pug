@@ -1,6 +1,6 @@
 .ssky
-  img.animated(src='/ssky_animated.gif')
-  img.static(src='/ssky_static.png')
+  .image.animated
+  .image.static
 
 .sun
 
@@ -12,8 +12,8 @@
 .bars
   each bar, index in [0,1,2,3,4,5,6,7]
     .bar(index=index)
-      each block in [7,6,5,4,3,2,1,0]
-        .block(index=block)
+      each block in [0,1,2,3,4,5,6,7]
+        span(index=block)
 
 .creds
   a(href="http://www.instagram.com/dotdotdotpix", target="_blank")

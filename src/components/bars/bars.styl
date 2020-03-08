@@ -29,7 +29,9 @@
   width: 100%
   height: 100%
   position: absolute
-  background: center 0%  no-repeat url("bg_sun_static.png")
+  background: url(bg_sun_static.png)
+  background-repeat: no-repeat
+  background-position: center top
   z-index: 1
 
 .ssky
@@ -41,6 +43,17 @@
   align-items: center
   justify-content: center
   z-index: 3
+  .image
+    position: absolute
+    transition: filter .15s ease-in-out
+    background-repeat: no-repeat
+    width: 100%
+    height: 100%
+    background-position: center center
+    &.static
+      background-image: url('/ssky_static.png')
+    &.animated
+      background-image: url('/ssky_animated.gif')
 
 .buttons
   display: grid
@@ -62,7 +75,7 @@ button.play
   border: none
   border-radius: 2px
   cursor: pointer
-  box-shadow: 0px 2px 3px rgba(0, 0, 0, .5)
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, .5)
   &.clicked
     animation: pulse 1s
     box-shadow: 0 0 0 1em rgba(255, 255, 255, 0)
@@ -75,32 +88,31 @@ button.play
 
 :host([data-state='playing'])
   button.play
-    background: var(--bar-block-7)
+    background: var(--playing-bg)
     color: var(--playing-color)
-    --pulse-color: var(--bar-block-7)
+    --pulse-color: var(--playing-bg)
   button.play > i.play
     display: none
-  .bars .bar
-    transition: height .025s ease
-  .ssky img.animated
-    display: block
-  .ssky img.static
-    display: none
+  .ssky
+    .image.static
+      opacity: 0
+    .image.animated
+      filter: drop-shadow(0px 0px 30px rgba(213, 56, 156, .5))
 
 :host([data-state="unstarted"])
   button.play
-    background: var(--bar-block-0)
+    background: var(--unstarted-bg)
     color: var(--unstarted-color)
-    --pulse-color: var(--bar-block-0)
+    --pulse-color: var(--unstarted-bg)
   i.pause
     display: none
 
 :host([data-state='paused'])
   button.play
-    background: var(--bar-block-3)
+    background: var(--paused-bg)
     color: var(--paused-color)
-    --pulse-color: var(--bar-block-3)
-  i .pause
+    --pulse-color: var(--paused-bg)
+  i.pause
     display: none
 
 :host([data-state="unstarted"]),
@@ -109,27 +121,29 @@ button.play
     display: none
   .ssky img.static
     display: block
-  .bars .bar .block
+  .bars .bar span
     opacity: 0 !important
 
 .bars
   display: grid
   grid-auto-flow: column
+  grid-gap: 1em
   align-items: end
   height: 100%
-  grid-gap: 1em
   padding: 1em 0 0
   box-sizing: border-box
   z-index: 2
   .bar
-    display: grid
-    grid-gap: 1.25em
-    justify-content: center
-    .block
+    display: flex
+    flex-direction: column-reverse
+    align-items: center
+    span
       width: 64px
       height: 40px
       opacity: 0
       transition: opacity .15s ease
+      &:not(:first-child)
+        margin-bottom: 1em
       &[index='0']
         background: var(--bar-block-0)
       &[index='1']
@@ -152,7 +166,7 @@ button.play
   bottom: 0
   right: 0
   box-sizing: border-box
-  padding 0.5em .5em 19px
+  padding .5em 27px 19px
   cursor: pointer
   z-index: 5
   a
@@ -174,10 +188,14 @@ button.play
       color: rgba(7, 187, 242, 1)
 
 @media (max-width: 640px)
-  .bars .bar .block
+  .bars .bar span
     width: 28px
     height: 17px
   .creds
     padding: .25em
     a
       font-size: .7em
+  .ssky .image
+    background-size: 65%
+  .sun
+    background-size: auto 45%
