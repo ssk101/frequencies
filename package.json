@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./tasks/serve.js",
-    "build": "node ./tasks/build.js",
-    "dist": "env NODE_ENV=production node ./tasks/build.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node ./tasks/build.js"
   },
   "author": "",
   "license": "ISC",

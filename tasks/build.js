@@ -9,9 +9,7 @@ if(!fs.existsSync('src/index.js')) {
 
 console.time('build time')
 
-var out = process.env.NODE_ENV == 'production'
-  ? path.join(__dirname, '..', 'dist')
-  : path.join(__dirname, '..', 'build')
+var out = path.join(__dirname, '..', 'build')
 
 fse.ensureDirSync(out)
 fse.emptyDirSync(out)
