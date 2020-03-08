@@ -4,7 +4,4 @@ module.exports = {
   postgres: process.env.DATABASE_URL || 'postgres://localhost/frequencies',
   title: 'Frequencies',
   favicon: 'favicon.png',
-  robots: {
-    enabled: false,
-  },
 }
