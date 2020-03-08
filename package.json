@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./tasks/serve.js",
-    "build": "node ./tasks/build.js"
+    "build": "node ./tasks/build.js",
+    "serve": "node ./server"
   },
   "author": "",
   "license": "ISC",
