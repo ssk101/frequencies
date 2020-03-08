@@ -53,6 +53,7 @@ export class Bars extends HTMLElement {
     this.AUDIO_CTX = new AudioContext()
     this.bars = this.shadowRoot.querySelectorAll('.bars .bar')
     this.AUDIO = new Audio(URL)
+
     this.ANALYZER = this.AUDIO_CTX.createAnalyser()
     this.ANALYZER.fftSize = 64
     this.FREQUENCY_DATA = new Uint8Array(this.ANALYZER.frequencyBinCount)
@@ -79,7 +80,7 @@ export class Bars extends HTMLElement {
     })
   }
   async startOrPause() {
-    await this.AUDIO_CTX.resume()
+    this.AUDIO_CTX.resume()
 
     if(this.PLAY_STATE !== 'playing') {
       this.AUDIO.play()
