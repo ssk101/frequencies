@@ -1,6 +1,14 @@
 doctype html
 html(lang='en')
   head
+    if config.production
+      script(async='', src='https://www.googletagmanager.com/gtag/js?id=UA-159943899-1')
+      script.
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-159943899-1');
+
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=no, minimal-ui')
     meta(name='mobile-web-app-capable', content='yes')

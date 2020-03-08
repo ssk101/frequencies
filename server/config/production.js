@@ -4,4 +4,5 @@ module.exports = {
   robots: {
     enabled: false,
   },
+  production: true,
 }
