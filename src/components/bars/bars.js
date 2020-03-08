@@ -4,7 +4,7 @@ import styles from './bars.styl'
 import mean from 'lodash/mean'
 
 const URL = 'wraith_of_red_hill.mp3'
-const FPS = 30
+const FPS = 40
 
 export class Bars extends HTMLElement {
   constructor() {
