@@ -79,10 +79,6 @@ function create(entry, {
 
   bundle = bundle.plugin(pathmodify, {})
 
-  if(process.env.CACHE) {
-    browserifyCache(bundle, {cacheFile: 'browserify-cache.json'});
-  }
-
   return bundle
 }
 

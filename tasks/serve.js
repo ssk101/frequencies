@@ -1,6 +1,7 @@
-const fs = require('fs')
 const express = require('express')
 const getPort = require('get-port');
+const pug = require('pug')
+const path = require('path')
 
 let setup = Promise.resolve()
 
@@ -11,12 +12,16 @@ let setup = Promise.resolve()
     require('./watch').on('finish', done).on('error', fail)
   })
 
+  try {
+    return require(path.join(__dirname, '..', 'server'))
+  } catch (error) {
+    console.warn('Warning:', error.message)
+    console.warn('Falling back to static.')
+  }
+
   const serverPorts = getPort.makeRange(3000, 3100)
-
-  const INDEX = (function () {
-    return fs.readFileSync('./public/index.html', 'utf8')
-  }())
-
+  const INDEX = pug
+    .compileFile(path.join(__dirname, '..', 'server/views/index.pug'))()
   const PORT = process.env.PORT || (await getPort({ port: serverPorts }))
 
   const app = express()
@@ -26,8 +31,8 @@ let setup = Promise.resolve()
       }
       return setup.then(next).catch(next)
     })
-    .use(express.static('./build'))
-    .use(express.static('./public'))
+    .use(express.static(path.join(__dirname, '..', 'build')))
+    .use(express.static(path.join(__dirname, '..', 'public')))
     .listen(PORT, function onListen(server) {
       console.log(`Server listening at port ${PORT}`);
     })

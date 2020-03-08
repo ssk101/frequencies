@@ -1,5 +1,8 @@
 import { define } from './lib'
-import { Bars } from './components/bars/bars'
+import { Frequencies } from './components/frequencies/frequencies'
 
 document.body.querySelector('main')
-  .appendChild(define(Bars))
+  .appendChild(define(Frequencies, {
+    state: 'unstarted',
+    url: 'wraith_of_red_hill.mp3',
+  }))

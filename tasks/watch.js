@@ -1,5 +1,6 @@
 const bundler = require('./bundle')
 const fse = require('fs-extra')
+const path = require('path')
 
 function watchify() {
   return bundle.bundle().pipe(bundler.output('build/application.js'))
@@ -22,7 +23,7 @@ if(process.env.HMR_PORT) {
   })
 }
 
-const bundle = bundler('src/index.js', { options })
+const bundle = bundler(path.join(__dirname, '..', 'src/index.js'), { options })
   .plugin(require.resolve('errorify'))
   .plugin(require.resolve('watchify'), {})
   .plugin(require.resolve('browserify-hmr'), hmrOpts)

@@ -1,0 +1,7 @@
+node_modules/**
+public/**
+dist/**
+build/**
+tmp/**
+
+*.min.js

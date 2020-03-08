@@ -1,7 +1,7 @@
 const fs = require('fs')
 const fse = require('fs-extra')
 const bundler = require('./bundle')
-
+const path = require('path')
 
 if(!fs.existsSync('src/index.js')) {
   return console.warn('No entry found')
@@ -10,15 +10,17 @@ if(!fs.existsSync('src/index.js')) {
 console.time('build time')
 
 var out = process.env.NODE_ENV == 'production'
-  ? 'out'
-  : 'build'
+  ? path.join(__dirname, '..', 'dist')
+  : path.join(__dirname, '..', 'build')
 
-fse.ensureDirSync(`./${out}`)
-fse.emptyDirSync(`./${out}`)
+fse.ensureDirSync(out)
+fse.emptyDirSync(out)
 
-module.exports = bundler('src/index.js', { stream: bundler.minified })
+module.exports = bundler(
+  path.join(__dirname, '..', 'src/index.js'), { stream: bundler.minified }
+)
   .bundle()
-  .pipe(bundler.minified(`./${out}/application.js`))
+  .pipe(bundler.minified(`${out}/application.js`))
   .on('finish', () => {
     console.log('build end')
     console.timeEnd('build time')
