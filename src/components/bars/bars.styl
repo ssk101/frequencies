@@ -1,0 +1,183 @@
+:host
+  display: grid
+  grid-auto-rows: min-content
+  grid-template-rows: min-content auto
+  grid-gap: 1em
+  align-items: center
+  position: relative
+  background: #210741
+  height: 100vh
+  box-sizing: border-box
+  padding: 1em 1em 0 1em
+  background-image: url('bg_grid_static.png')
+  background-repeat: no-repeat
+  background-size: cover
+  --bar-block-0: #8f1861
+  --bar-block-1: #a12973
+  --bar-block-2: #ad326d
+  --bar-block-3: #b9456a
+  --bar-block-4: #c65e67
+  --bar-block-5: #c97962
+  --bar-block-6: #c49365
+  --bar-block-7: #bdad67
+
+@keyframes pulse
+  0%
+    box-shadow: 0 0 0 0 var(--pulse-color)
+
+.sun
+  width: 100%
+  height: 100%
+  position: absolute
+  background: center 0%  no-repeat url("bg_sun_static.png")
+  z-index: 1
+
+.ssky
+  width: 100%
+  height: 100%
+  position: absolute
+  z-index: 1
+  display: flex
+  align-items: center
+  justify-content: center
+  z-index: 3
+
+.buttons
+  display: grid
+  grid-auto-flow: column
+  grid-gap: 1em
+  z-index: 4
+  i
+    font-family: 'Material Icons'
+    font-style: normal
+
+button.play
+  display: flex
+  align-items: center
+  justify-content: center
+  padding: .25em
+  min-width: 50px
+  max-width: 50px
+  font-size: 1.5em
+  border: none
+  border-radius: 2px
+  cursor: pointer
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, .5)
+  &.clicked
+    animation: pulse 1s
+    box-shadow: 0 0 0 1em rgba(255, 255, 255, 0)
+  &:focus
+    outline: none
+
+:host:not([data-state='paused'])
+  i.play
+    display: none
+
+:host([data-state='playing'])
+  button.play
+    background: var(--bar-block-7)
+    color: var(--playing-color)
+    --pulse-color: var(--bar-block-7)
+  button.play > i.play
+    display: none
+  .bars .bar
+    transition: height .025s ease
+  .ssky img.animated
+    display: block
+  .ssky img.static
+    display: none
+
+:host([data-state="unstarted"])
+  button.play
+    background: var(--bar-block-0)
+    color: var(--unstarted-color)
+    --pulse-color: var(--bar-block-0)
+  i.pause
+    display: none
+
+:host([data-state='paused'])
+  button.play
+    background: var(--bar-block-3)
+    color: var(--paused-color)
+    --pulse-color: var(--bar-block-3)
+  i .pause
+    display: none
+
+:host([data-state="unstarted"]),
+:host([data-state="paused"])
+  .ssky img.animated
+    display: none
+  .ssky img.static
+    display: block
+  .bars .bar .block
+    opacity: 0 !important
+
+.bars
+  display: grid
+  grid-auto-flow: column
+  align-items: end
+  height: 100%
+  grid-gap: 1em
+  padding: 1em 0 0
+  box-sizing: border-box
+  z-index: 2
+  .bar
+    display: grid
+    grid-gap: 1.25em
+    justify-content: center
+    .block
+      width: 64px
+      height: 40px
+      opacity: 0
+      transition: opacity .15s ease
+      &[index='0']
+        background: var(--bar-block-0)
+      &[index='1']
+        background: var(--bar-block-1)
+      &[index='2']
+        background: var(--bar-block-2)
+      &[index='3']
+        background: var(--bar-block-3)
+      &[index='4']
+        background: var(--bar-block-4)
+      &[index='5']
+        background: var(--bar-block-5)
+      &[index='6']
+        background: var(--bar-block-6)
+      &[index='7']
+        background: var(--bar-block-7)
+
+.creds
+  position: absolute
+  bottom: 0
+  right: 0
+  box-sizing: border-box
+  padding 0.5em .5em 19px
+  cursor: pointer
+  z-index: 5
+  a
+    display: grid
+    grid-auto-flow: column
+    grid-gap: .25em
+  a,
+  a:visited
+    font-family: 'Oxanium'
+    font-size: .7em
+    text-decoration: none
+    span
+      transition: all .5s ease
+      color: rgba(182, 197, 222, .75)
+  &:hover
+    span:first-of-type
+      opacity: .75
+    span:last-of-type
+      color: rgba(7, 187, 242, 1)
+
+@media (max-width: 640px)
+  .bars .bar .block
+    width: 28px
+    height: 17px
+  .creds
+    padding: .25em
+    a
+      font-size: .7em

@@ -1,0 +1,55 @@
+{
+  "name": "audioviz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./scripts/serve.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "browserify": {
+    "transform": [
+      "pugify",
+      [
+        "babelify",
+        {
+          "extensions": [
+            ".js",
+            ".pug"
+          ]
+        }
+      ]
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/plugin-proposal-export-default-from": "^7.2.0",
+    "@babel/plugin-proposal-function-bind": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.4.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+    "@babel/plugin-transform-async-to-generator": "^7.1.0",
+    "@babel/preset-env": "7.1.0",
+    "babel-plugin-stylus-compiler": "^1.4.0",
+    "babel-plugin-transform-optional-chaining": "^7.0.0-beta.3",
+    "babelify": "^10.0.0",
+    "browserify": "^16.2.3",
+    "browserify-cache-api": "^3.0.1",
+    "browserify-hmr": "^0.4.0",
+    "envify": "^4.1.0",
+    "errorify": "^0.3.1",
+    "express": "^4.17.1",
+    "flush-write-stream": "^2.0.0",
+    "fs-extra": "^8.1.0",
+    "get-port": "^5.1.1",
+    "minify-stream": "^1.2.1",
+    "pathmodify": "^0.5.0",
+    "pugify": "^2.2.0",
+    "uglifyify": "^5.0.2",
+    "watchify": "^3.11.1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
+  }
+}
