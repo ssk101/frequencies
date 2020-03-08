@@ -9,12 +9,16 @@ if(!fs.existsSync('src/index.js')) {
 
 console.time('build time')
 
-fse.ensureDirSync('./build')
-fse.emptyDirSync('./build')
+var out = process.env.NODE_ENV == 'production'
+  ? 'out'
+  : 'build'
+
+fse.ensureDirSync(`./${out}`)
+fse.emptyDirSync(`./${out}`)
 
 module.exports = bundler('src/index.js', { stream: bundler.minified })
   .bundle()
-  .pipe(bundler.minified('./build/application.js'))
+  .pipe(bundler.minified(`./${out}/application.js`))
   .on('finish', () => {
     console.log('build end')
     console.timeEnd('build time')

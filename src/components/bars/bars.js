@@ -3,7 +3,8 @@ import template from './bars.pug'
 import styles from './bars.styl'
 import mean from 'lodash/mean'
 
-const URL = '/wraith_of_red_hill.mp3'
+const URL = 'wraith_of_red_hill.mp3'
+const FPS = 30
 
 export class Bars extends HTMLElement {
   constructor() {
@@ -22,6 +23,12 @@ export class Bars extends HTMLElement {
       6: 75,
       7: 1,
     }
+
+    this.fpsInterval = 1000 / FPS
+    this.then = Date.now()
+    this.startTime = this.then
+    this.now = null
+    this.elapsed = null
   }
 
   getFreqPerc(freq, max, min = 0) {
@@ -86,6 +93,15 @@ export class Bars extends HTMLElement {
   drawBars() {
     if(this.PLAY_STATE === 'playing') {
       requestAnimationFrame(() => this.drawBars())
+      this.now = Date.now()
+      this.elapsed = this.now - this.then
+
+      if(this.elapsed < this.fpsInterval) {
+        return
+      }
+
+      this.then = this.now - (this.elapsed % this.fpsInterval)
+
       this.ANALYZER.getByteFrequencyData(this.FREQUENCY_DATA)
       const frequencies = this.getMaxFrequency(Array.from(this.FREQUENCY_DATA), 4)
       frequencies.forEach((frequency, fIndex) => {
