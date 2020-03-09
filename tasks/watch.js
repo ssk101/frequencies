@@ -9,13 +9,15 @@ function watchify() {
 fse.ensureDirSync('./build')
 fse.emptyDirSync('./build')
 
-const options =  {
+const options = {
   cache: {},
   packageCache: {},
   debug: true,
   verbose: true,
 }
-let hmrOpts = {}
+
+const hmrOpts = {}
+
 if(process.env.HMR_PORT) {
   Object.assign(hmrOpts, {
     port: process.env.HMR_PORT,

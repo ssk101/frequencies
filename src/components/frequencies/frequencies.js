@@ -1,6 +1,5 @@
-
+import { Component, Template, Attribute } from '@scoutgg/widgets/esm/index.js'
 import template from './frequencies.pug'
-import styles from './frequencies.styl'
 import mean from 'lodash/mean'
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext
@@ -17,13 +16,11 @@ const THRESHOLDS = {
   7: 1,
 }
 
+@Component('ss')
+@Template(template)
+@Attribute('state', String)
+@Attribute('url', String)
 export class Frequencies extends HTMLElement {
-  constructor() {
-    super()
-    this.styles = styles
-    this.template = template()
-  }
-
   attributeChangedCallback(attr, newVal) { }
 
   connectedCallback() {
@@ -31,8 +28,6 @@ export class Frequencies extends HTMLElement {
     this.startTime = this.then
     this.now = null
     this.elapsed = null
-    this.bars = this.shadowRoot.querySelectorAll('.bars .bar')
-    this.playButton = this.shadowRoot.querySelector('button.play')
     this.createAudio()
     this.setListeners()
   }
@@ -45,9 +40,15 @@ export class Frequencies extends HTMLElement {
     this.frequencyData = new Uint8Array(this.analyzer.frequencyBinCount)
   }
 
-  setListeners() {
-    this.playButton.addEventListener('click', () => this.startOrPause())
+  get bars() {
+    return this.shadowRoot.querySelectorAll('.bars .bar')
+  }
 
+  get playButton() {
+    return this.shadowRoot.querySelector('button.play')
+  }
+
+  setListeners() {
     this.audio.addEventListener('canplay', () => {
       this.source = this.audioCtx.createMediaElementSource(this.audio)
       this.source.connect(this.analyzer)
@@ -119,28 +120,5 @@ export class Frequencies extends HTMLElement {
         })
       })
     }
-  }
-
-  get state() {
-    return this.getAttribute('state')
-  }
-
-  set state(v) {
-    this.setAttribute('state', v)
-  }
-
-  get url() {
-    return this.getAttribute('url')
-  }
-
-  set url(v) {
-    this.setAttribute('url', v)
-  }
-
-  static get observedAttributes() {
-    return [
-      'state',
-      'url',
-    ]
   }
 }

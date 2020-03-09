@@ -7,7 +7,8 @@
   },
   "plugins": [
     "babel",
-    "only-warn"
+    "only-warn",
+    "pug"
   ],
   "globals": {
     "config": "readonly"

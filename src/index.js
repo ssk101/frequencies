@@ -1,8 +1,8 @@
-import { define } from './lib'
-import { Frequencies } from './components/frequencies/frequencies'
+import * as vdom from 'virtual-dom'
+import { bootstrap } from '@scoutgg/widgets/esm/index.js'
+import { vdom as renderer } from '@scoutgg/widgets/esm/renderers/vdom.js'
+import './components/frequencies/frequencies'
 
-document.body.querySelector('main')
-  .appendChild(define(Frequencies, {
-    state: 'unstarted',
-    url: 'wraith_of_red_hill.mp3',
-  }))
+bootstrap([
+  renderer(vdom),
+])

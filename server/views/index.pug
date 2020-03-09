@@ -21,6 +21,8 @@ html(lang='en')
         src: url('https://fonts.gstatic.com/s/materialicons/v50/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2') format('woff2');
       }
       html {
+        margin: 0;
+        padding: 0;
         font-family: 'Russo One', sans-serif;
         --playing-bg: #c49365;
         --playing-color: #fff;
@@ -51,4 +53,8 @@ html(lang='en')
       }
   body
     main
+      ss-frequencies(
+        state='unstarted',
+        url='wraith_of_red_hill.mp3',
+      )
     script(src='application.js')

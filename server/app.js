@@ -1,13 +1,12 @@
 const express = require('express')
-const path = require('path')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const responseTime = require('response-time')
 const favicon = require('serve-favicon')
 const compression = require('compression')
+const path = require('path')
 const config = require('./config')
 const routes = require('./routes')
-
 const app = express()
 
 app
@@ -25,8 +24,8 @@ app
   }))
   .use(favicon(path.join(__dirname, '..', 'public', config.favicon)))
   .use(compression())
-  .use(express.static(path.join(__dirname, '..', 'public')))
-  .use(express.static(path.join(__dirname, '..', 'build')))
+  .use(express.static('./build'))
+  .use(express.static('./public'))
   .use(routes)
 
 module.exports = app

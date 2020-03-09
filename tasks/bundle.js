@@ -5,7 +5,7 @@ const browserify = require('browserify')
 const flushWriteStream = require('flush-write-stream')
 const minifyStream = require('minify-stream')
 const pathmodify = require('pathmodify')
-const browserifyCache = require('browserify-cache-api')
+const meta = require('./services/meta')
 
 var uglifyOpts = {
   global: true,
@@ -53,25 +53,21 @@ function minified(file, rename) {
   return minifyStream(minifyOptions).pipe(output(file, rename))
 }
 
-function renameRevision(bundleName, rev) {
-  const extname = path.extname(bundleName)
-  const filename = path.basename(bundleName, extname)
-  const dirname = path.dirname(bundleName)
-
-  return path.join(dirname, `${filename}-${rev.slice(0, 10)}${extname}`)
-}
-
 create.minified = minified
 create.output = output
-create.revision = renameRevision
 
 const browserifyOpts = {}
 
 function create(entry, {
   stream = output,
-  options = browserifyOpts
+  options = browserifyOpts,
 } = {}) {
   let bundle = browserify(entry, options)
+
+  if(process.env.NODE_ENV === 'production') {
+    Object.assign(process.env, meta({ dir: process.cwd() }))
+    bundle = bundle.transform(require.resolve('envify'), { global: true })
+  }
 
   if(stream === minified) {
     bundle = bundle.transform(require.resolve('uglifyify'), uglifyOpts)

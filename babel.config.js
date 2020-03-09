@@ -1,4 +1,4 @@
-module.exports = function (api) {
+module.exports = (api) => {
   api.cache(true)
 
   const config = {
@@ -20,7 +20,12 @@ module.exports = function (api) {
       '@babel/plugin-proposal-optional-chaining',
       '@babel/plugin-transform-async-to-generator',
       '@babel/plugin-proposal-object-rest-spread',
-      'babel-plugin-stylus-compiler',
+      'class-name',
+      [
+        '@babel/plugin-proposal-decorators', {
+          legacy: true,
+        },
+      ],
     ],
   }
 

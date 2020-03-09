@@ -1,3 +1,5 @@
+style= require('./frequencies.styl')
+
 .ssky
   .image.animated
   .image.static
@@ -5,15 +7,18 @@
 .sun
 
 .buttons
-  button.play
+  button.play((click)=this.startOrPause())
     i.material-icons.play play_arrow
     i.material-icons.pause pause
 
-.bars
-  each bar, index in [0,1,2,3,4,5,6,7]
-    .bar(index=index)
-      each block in [0,1,2,3,4,5,6,7]
-        span(index=block)
+if graphicsMode === 'canvas'
+  canvas
+else
+  .bars
+    each bar, index in [0,1,2,3,4,5,6,7]
+      .bar(index=index)
+        each block in [0,1,2,3,4,5,6,7]
+          span(index=block)
 
 .creds
   a(href="http://www.instagram.com/dotdotdotpix", target="_blank")

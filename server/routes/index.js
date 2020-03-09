@@ -1,5 +1,4 @@
 const router = require('express').Router()
-const config = require('../config')
 const errorHandler = require('../middlewares/error-handler')
 const hostUrl = require('../middlewares/host-url')
 
