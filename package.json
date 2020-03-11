@@ -44,6 +44,7 @@
     "@scoutgg/widgets": "^2.2.0",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
+    "pixi.js": "^5.2.1",
     "virtual-dom": "^2.1.1"
   },
   "devDependencies": {
