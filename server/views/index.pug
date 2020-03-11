@@ -24,14 +24,6 @@ html(lang='en')
         margin: 0;
         padding: 0;
         font-family: 'Russo One', sans-serif;
-        --playing-bg: #c49365;
-        --playing-color: #fff;
-        --paused-bg: #b9456a;
-        --paused-color: #fff;
-        --ended-bg: #230e2a;
-        --ended-color: #fff;
-        --unstarted-bg: #8f1861;
-        --unstarted-color: #fff;
       }
       html, body {
         height: 100%;
@@ -53,7 +45,7 @@ html(lang='en')
       }
   body
     main
-      ss-frequencies-css(
+      ss-frequencies(
         url='wraith_of_red_hill.mp3',
       )
     script(src='application.js')

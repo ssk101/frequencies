@@ -1,8 +1,10 @@
-import * as PIXI from 'pixi.js'
 import AudioService from '../../services/audio.js'
-import emitter from '../../services/emitter'
+import emitter from '../../services/emitter.js'
 import { Component, Template, Attribute } from '@scoutgg/widgets/esm/index.js'
+import styles from '../../styles.json'
+import { varsToHexadecimal } from '../../services/json-to-css.js'
 import template from './frequencies.pug'
+import '../pixi/pixi.js'
 
 const THRESHOLDS = {
   0: 250,
@@ -32,6 +34,16 @@ export class Frequencies extends HTMLElement {
       this.playButton.classList.add('clicked')
       setTimeout(() => this.playButton.classList.remove('clicked'), 1000)
     })
+
+    this.paint()
+  }
+
+  paint() {
+    this.colors = varsToHexadecimal({
+      background: 'grid-background',
+      foreground: 'grid-color',
+    }, styles.html)
+    this.render()
   }
 
   get playButton() {

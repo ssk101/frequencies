@@ -1,0 +1,33 @@
+{
+  "html": {
+    "--grid-background": "#210741",
+    "--grid-color": "#082550",
+    "--playing-bg": "#c49365",
+    "--playing-color": "#fff",
+    "--paused-bg": "#b9456a",
+    "--paused-color": "#fff",
+    "--ended-bg": "#230e2a",
+    "--ended-color": "#fff",
+    "--unstarted-bg": "#8f1861",
+    "--unstarted-color": "#fff",
+    "--bar-block-0": "#8f1861",
+    "--bar-block-1": "#a12973",
+    "--bar-block-2": "#ad326d",
+    "--bar-block-3": "#b9456a",
+    "--bar-block-4": "#c65e67",
+    "--bar-block-5": "#c97962",
+    "--bar-block-6": "#c49365",
+    "--bar-block-7": "#bdad67",
+    "--ss-outline": "#140a19",
+    "--ss-skin-0": "#c392bf",
+    "--ss-skin-1": "#fdccee",
+    "--ss-skin-2": "#bfa4b3",
+    "--ss-hair-0": "#21141d",
+    "--ss-hair-1": "#2b1827",
+    "--ss-pants-0": "#140a19",
+    "--ss-pants-1": "#141215",
+    "--ss-jacket-0": "#140a19",
+    "--ss-jacket-1": "#200c29",
+    "--ss-accessory-0": "#160f1d"
+  }
+}
